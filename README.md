@@ -1,0 +1,2 @@
+# aws
+creación de bucket
