@@ -6,13 +6,16 @@ terraform {
     }
   }
 }
-provider "aws" {
-  region = "us-east-1"
+
+# Nombre único para el bucket
+locals {
+  bucket_name = "mi-proyecto-my-tf-test-bucket"
 }
 
-# Creación del bucket
+# Creación del bucket en la región eu-central-1
 resource "aws_s3_bucket" "example" {
-  bucket = "my-tf-test-bucket"
+  bucket = local.bucket_name
+  region = "eu-central-1"
 
   tags = {
     Name = "My bucket"
