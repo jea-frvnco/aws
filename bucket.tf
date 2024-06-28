@@ -2,9 +2,13 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.0"
+      version = "5.53.0"
     }
   }
+}
+
+provider "aws" {
+  region = "us-east-1"
 }
 
 # Nombre único para el bucket
@@ -12,11 +16,10 @@ locals {
   bucket_name = "mi-proyecto-my-tf-test-bucket"
 }
 
-# Creación del bucket en la región eu-central-1
+# Creación del bucket en la región us-east-1
 resource "aws_s3_bucket" "example" {
   bucket = local.bucket_name
-  region = "eu-central-1"
-
+  region = "us-east-1"
   tags = {
     Name = "My bucket"
   }
