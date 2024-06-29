@@ -11,7 +11,7 @@ provider "aws" {
   region = "us-east-1"
 }
  
-# Buscar una AMI válida en la región us-east-1
+# Aquí busco una AMI válida en la región us-east-1 para no tener que buscarla a mano
 data "aws_ami" "amazon_linux_ami" {
   most_recent = true
  
@@ -36,8 +36,8 @@ data "aws_ami" "amazon_linux_ami" {
   }
 }
  
-# Crear una VPC
-module "vpc" {
+# Creación de la VPC
+module "vpc"
   source = "terraform-aws-modules/vpc/aws"
   name = "my-vpc"
   cidr = "10.0.0.0/16"
@@ -52,7 +52,7 @@ module "vpc" {
   }
 }
  
-# Security Group for EFS
+# Grupo de seguridad del EFS
 resource "aws_security_group" "efs-sg" {
   name = "efs_security_group"
   vpc_id = module.vpc.vpc_id
@@ -76,7 +76,7 @@ resource "aws_security_group" "efs-sg" {
   }
 }
  
-# Security Group for ALB
+# Grupo de seguridad ALB
 resource "aws_security_group" "alb-sg" {
   name = "alb_security_group"
   vpc_id = module.vpc.vpc_id
@@ -94,7 +94,7 @@ resource "aws_security_group" "alb-sg" {
   }
 }
  
-# Security Group for Web Servers
+# Grupo de seguridad paraz Web Servers
 resource "aws_security_group" "webserver-sg" {
   name = "webserver_security_group"
   vpc_id = module.vpc.vpc_id
@@ -118,7 +118,7 @@ resource "aws_security_group" "webserver-sg" {
   }
 }
  
-# Nombre único para el bucket S3
+# Nombre random para el bucket S3
 resource "random_id" "bucket_suffix" {
   byte_length = 8
 }
@@ -219,7 +219,7 @@ resource "aws_instance" "web" {
   depends_on = [aws_s3_object.object, aws_efs_file_system.efs]
 }
  
-# Crear un Load Balancer y adjuntar las instancias
+# Crear un balanceador de carga y adjuntar las instancias
 resource "aws_lb" "alb" {
   name               = "my-alb"
   internal           = false
